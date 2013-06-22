@@ -1,0 +1,24 @@
+<project name="The macro-build file." basedir=".">
+   <description>
+      This is a place to define your own set of macros.
+   </description>
+
+   <!-- Get rid of stupid warnings -->
+   <presetdef name="javac">
+      <javac includeantruntime="false" />
+   </presetdef>
+
+   <!-- Define the token-replace -->
+   <macrodef name="token-replace">
+      <attribute name="includes" />
+      <attribute name="dir" />
+      <attribute name="token" />
+      <attribute name="value" />
+
+      <sequential>
+         <echo>Setting @{token} to @{value}</echo>
+         <replace includes="**/*@{includes}" dir="@{dir}" token="@{token}" value="@{value}" />
+      </sequential>
+   </macrodef>
+
+</project>

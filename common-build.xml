@@ -1,0 +1,116 @@
+<project name="The common-build file" basedir=".">
+   <description>
+      This is the common build file to create standard targets for each sub-component to use.
+   </description>
+
+   <!-- Import the macros -->
+   <import file="${common.dir}/macro-build.xml" />
+
+   <!-- Target: All -->
+   <target name="all" depends="init,compile,jar,deploy,finalize" />
+
+   <!-- Target: Clean -->
+   <target name="clean">
+      <delete dir="${scratch.dir}/${component}" />
+      <delete dir="${deploy.lib.dir}" />
+      <delete dir="${deploy.bin.dir}" />
+      <delete dir="${deploy.config.dir}" />
+      <delete dir="${deploy.logs.dir}" />
+   </target>
+
+   <!-- Target: Init -->
+   <target name="init" description="Creates deploy directories.">
+      <mkdir dir="${scratch.dir}" />
+      <mkdir dir="${scratch.classes.dir}" />
+      <mkdir dir="${deploy.basedir}" />
+      <mkdir dir="${deploy.lib.dir}" />
+      <mkdir dir="${deploy.bin.dir}" />
+      <mkdir dir="${deploy.config.dir}" />
+      <mkdir dir="${deploy.logs.dir}" />
+   </target>
+
+   <!-- Target: Compile -->
+   <target name="compile" description="Compiles any code.">
+      <javac srcdir="${src.dir}" destdir="${scratch.classes.dir}" debug="${debug}" debuglevel="${debug.level}">
+         <classpath refid="compile.classpath" />
+      </javac>
+   </target>
+
+   <!-- Target: Jar -->
+   <target name="jar" description="Creates a jar from the classes">
+      <jar destfile="${dist.dir}/${component}.jar" basedir="${scratch.classes.dir}">
+         <manifest>
+            <attribute name="Built-By" value="${env.USER}" />
+         </manifest>
+      </jar>
+   </target>
+
+   <!-- Target: deploy -->
+   <target name="deploy" depends="deploy-lib,deploy-config,deploy-bin,deploy-logs" />
+
+   <!-- Target: deploy-config -->
+   <target name="deploy-config" description="copies over any config files to the deploy.">
+      <copy todir="${deploy.config.dir}" verbose="${verbose}" overwrite="true" flatten="true">
+         <path>
+            <pathelement path="${config.to.deploy}" />
+         </path>
+      </copy>
+   </target>
+
+   <!-- Target: deploy-bin -->
+   <target name="deploy-bin" description="copies over any bin files to the deploy.">
+      <copy todir="${deploy.bin.dir}" verbose="${verbose}" overwrite="true" flatten="true">
+         <path>
+            <pathelement path="${bin.to.deploy}" />
+         </path>
+      </copy>
+   </target>
+
+   <!-- Target: deploy-lib -->
+   <target name="deploy-lib" description="copies over any libs to the deploy.">
+      <copy todir="${deploy.lib.dir}" verbose="${verbose}" overwrite="true" flatten="true">
+         <path>
+            <pathelement path="${lib.to.deploy}" />
+         </path>
+      </copy>
+   </target>
+
+   <!-- Target: deploy-logs -->
+   <target name="deploy-logs" description="makes the .log and .pid files.">
+      <touch file="${deploy.logs.dir}/${component}.log" />
+      <touch file="${deploy.logs.dir}/${component}.pid" />
+   </target>
+
+   <!-- Target: finalize -->
+   <target name="finalize" description="Token replace.">
+
+      <!-- Change the path in the start script to point to LIB_DIR for third party JARs-->
+      <pathconvert property="start.classpath" targetos="unix">
+         <path path="${lib.to.deploy}" />
+         <chainedmapper>
+            <flattenmapper />
+            <globmapper from="*" to="$$LIB_DIR/*" />
+         </chainedmapper>
+      </pathconvert>
+
+      <!-- Deploy directory -->
+      <token-replace includes="*" dir="${deploy.dir}" token="@USERNAME@" value="${env.USER}" />
+      <token-replace includes="*" dir="${deploy.dir}" token="@COMPONENT@" value="${component}" />
+
+      <!-- Deploy bin directory -->
+      <token-replace includes=".sh" dir="${deploy.bin.dir}" token="@MAIN_JAR@" value="${main.jar}" />
+      <token-replace includes=".sh" dir="${deploy.bin.dir}" token="@CLASSPATH@" value="${deploy.lib.dir}/*.jar" />
+      <token-replace includes=".sh" dir="${deploy.bin.dir}" token="@START_CLASSPATH@" value="${start.classpath}" />
+      <token-replace includes=".sh" dir="${deploy.bin.dir}" token="@MAIN_CLASS@" value="${main.class}" />
+
+      <!-- Deploy config directory -->
+      <token-replace includes=".xml" dir="${deploy.config.dir}" token="@LOG_FILE@" value="${deploy.logs.dir}/${component}.log" />
+      <token-replace includes=".properties" dir="${deploy.config.dir}" token="@REST_USERNAME@" value="${rest.username}" />
+      <token-replace includes=".properties" dir="${deploy.config.dir}" token="@REST_PASSWORD@" value="${rest.password}" />
+
+      <!-- Make start/stop scripts 755 -->
+      <chmod perm="ugo+rx" file="${deploy.bin.dir}/stop.sh" verbose="${verbose}" failonerror="false" />
+      <chmod perm="ugo+rx" file="${deploy.bin.dir}/start.sh" verbose="${verbose}" failonerror="false" />
+   </target>
+
+</project>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="true" xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+   <appender name="rollingFileAppender" class="org.apache.log4j.RollingFileAppender">
+      <param name="append" value="true" />
+      <param name="file" value="@LOG_FILE@" />
+      <param name="immediateFlush" value="true" />
+      <param name="maxFileSize" value="100mb" />
+      <param name="maxBackupIndex" value="100" />
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%-5p - %d{HH:mm:ss.SSS} - [%C.%M:%L] - %m%n" />
+      </layout>
+   </appender>
+
+   <logger name="org.slf4j">
+      <level value="warn" />
+   </logger>
+
+   <logger name="log4j">
+      <level value="info" />
+   </logger>
+
+   <logger name="org.apache.activemq">
+      <level value="info" />
+   </logger>
+
+   <logger name="org.apache.camel">
+      <level value="debug" />
+   </logger>
+
+   <logger name="org.springframework">
+      <level value="debug" />
+   </logger>
+
+   <logger name="com.jjw">
+      <level value="trace" />
+   </logger>
+
+   <root>
+      <level value="debug" />
+      <appender-ref ref="rollingFileAppender" />
+   </root>
+
+</log4j:configuration>
