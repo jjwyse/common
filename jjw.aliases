@@ -1,7 +1,7 @@
-# Setup aliases for JJW
+# Setup aliases
 
 # Base directories
-alias workspace='cd $JJW_DIR'
+alias workspace='cd $WORKSPACE_HOME'
 alias cots='workspace; cd ../cots'
 
 # Source directories
