@@ -1,0 +1,53 @@
+# Setup aliases for JJW
+
+# Base directories
+alias workspace='cd $JJW_DIR'
+alias cots='workspace; cd ../cots'
+
+# Source directories
+alias coresrc='workspace; cd core'
+alias sandboxsrc='workspace; cd sandbox'
+alias testtoolsrc='workspace; cd testtool'
+alias webservicesrc='workspace; cd webservice'
+alias fellowshipgroupsrc='workspace; cd fellowshipgroups'
+alias personalwebsitesrc='workspace; cd personalwebsite'
+
+# Deploy directories
+alias tomcat='cots; cd apache-tomcat-7.0.33'
+alias cleantomcat='tomcat; rm -rf webapps/personalwebsite*'
+alias deploy='workspace; cd deploy'
+alias core='deploy; cd core'
+alias sandbox='deploy; cd sandbox'
+alias testtool='deploy; cd testtool'
+alias webservice='deploy; cd webservice'
+alias fellowshipgroup='deploy; cd fellowshipgroups'
+alias personalwebsite='deploy; cd personalwebsite'
+
+# Start
+alias taillog='tail -f ../logs/*.log'
+alias startmq='cots; cd apache-activemq-5.7.0/bin; ./activemq start; tail -f ../data/activemq.log'
+alias startsandbox='sandbox; cd bin; ./start.sh server; taillog'
+alias starttesttool='testtool; cd bin; ./start.sh; taillog';
+alias startmq='activemq;cd bin; ./activemq start; tailmq'
+alias starttomcat='tomcat;cd bin;./catalina.sh start;tailtomcat'
+alias activemq='cots; cd apache-activemq-5.7.0'
+
+
+# Stop
+alias stopmq='cots; cd apache-activemq-5.7.0/bin; ./activemq stop'
+alias stopsandbox='sandbox; cd bin; ./stop.sh'
+alias stoptesttool='testtool; cd bin; ./stop.sh'
+alias stopmq='activemq;cd bin; ./activemq stop'
+alias stoptomcat='tomcat;cd bin;./catalina.sh stop'
+
+
+# Logs
+alias tailsandbox='sandbox; cd logs; tail -f *.log'
+alias tailtesttool='testtool; cd logs; tail -f *.log'
+alias tailfg='fellowshipgroup; cd logs; tail -f *.log'
+alias tailpersonalwebsite='personalwebsite; cd logs; tail -f *.log'
+alias tailtomcat='tomcat;cd logs;tail -f catalina.out'
+alias tailmq='activemq;cd data;tail -f activemq.log'
+
+# Status
+alias status='clear;ps -aef | grep java | grep ${USER} | egrep -v "grep|\/apps\/eclipse"'

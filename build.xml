@@ -1,0 +1,28 @@
+<project name="JJW build file" default="all" basedir=".">
+   <description>
+      This is the main build file to build each sub-component.
+   </description>
+
+   <!-- Setup properties -->
+   <property environment="env" />
+   <echo>WORKSPACE_HOME=${env.WORKSPACE_HOME}</echo>
+   <property name="workspace.dir" value="${env.WORKSPACE_HOME}" />
+   <property file="build.properties" />
+
+   <!-- Target: clean -->
+   <target name="clean">
+      <delete dir="scratch" />
+      <delete dir="deploy" />
+   </target>
+
+   <!-- Target: All -->
+   <target name="all">
+      <ant antfile="${core.dir}/build.xml" target="all" dir="${core.dir}" />
+      <ant antfile="${sandbox.dir}/build.xml" target="all" dir="${sandbox.dir}" />
+      <ant antfile="${webservice.dir}/build.xml" target="all" dir="${webservice.dir}" />
+      <ant antfile="${testtool.dir}/build.xml" target="all" dir="${testtool.dir}" />
+      <ant antfile="${fellowshipgroups.dir}/build.xml" target="all" dir="${fellowshipgroups.dir}" />
+      <ant antfile="${personalwebsite.dir}/build.xml" target="all" dir="${personalwebsite.dir}" />
+   </target>
+
+</project>
