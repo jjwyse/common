@@ -2,7 +2,7 @@
 
 # Base directories
 alias workspace='cd $WORKSPACE_HOME'
-alias cots='workspace; cd ../cots'
+alias cots='workspace; cd cots'
 
 # Source directories
 alias coresrc='workspace; cd core'
