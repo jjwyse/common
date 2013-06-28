@@ -27,7 +27,7 @@
    </logger>
 
    <logger name="org.apache.camel">
-      <level value="debug" />
+      <level value="info" />
    </logger>
 
    <logger name="org.springframework">
