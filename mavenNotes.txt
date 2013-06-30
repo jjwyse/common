@@ -1,0 +1,5 @@
+# Create new Maven Java Web Application
+mvn archetype:generate -DgroupId=com.jjw.mavenpractice -DartifactId=mavenpractice -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+
+# Import this into Eclipse as a web project
+mvn eclipse:eclipse -Dwtpversion=2.0
