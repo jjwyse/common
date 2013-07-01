@@ -43,11 +43,11 @@ alias stoptesttool='testtool; cd bin; ./stop.sh'
 
 # Logs
 alias taillog='tail -f ../logs/*.log'
-alias tailaddressbook='addressbook; cd logs; tail -f *.log'
-alias tailfg='fellowshipgroup; cd logs; tail -f *.log'
-alias tailpersonalwebsite='personalwebsite; cd logs; tail -f *.log'
-alias tailsandbox='sandbox; cd logs; tail -f *.log'
-alias tailtesttool='testtool; cd logs; tail -f *.log'
+alias tailaddressbook='addressbookdep; cd logs; tail -f *.log'
+alias tailfg='fellowshipgroupdep; cd logs; tail -f *.log'
+alias tailpersonalwebsite='personalwebsitedep; cd logs; tail -f *.log'
+alias tailsandbox='sandboxdep; cd logs; tail -f *.log'
+alias tailtesttool='testtooldep; cd logs; tail -f *.log'
 
 # Status
 alias status='clear;ps -aef | grep java | grep ${USER} | egrep -v "grep|\/apps\/eclipse"'

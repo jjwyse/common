@@ -23,15 +23,15 @@
    </logger>
 
    <logger name="org.apache.activemq">
-      <level value="info" />
+      <level value="warn" />
    </logger>
 
    <logger name="org.apache.camel">
-      <level value="info" />
+      <level value="warn" />
    </logger>
 
    <logger name="org.springframework">
-      <level value="debug" />
+      <level value="info" />
    </logger>
 
    <logger name="com.jjw">
