@@ -11,8 +11,8 @@
 
    <!-- Target: clean -->
    <target name="clean">
-      <delete dir="scratch" />
-      <delete dir="deploy" />
+      <delete dir="../scratch" />
+      <delete dir="../deploy" />
    </target>
 
    <!-- Target: All -->
