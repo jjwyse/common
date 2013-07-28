@@ -64,3 +64,7 @@ alias stoptomcat='tomcat;cd bin;./catalina.sh stop'
 alias tailmq='activemq;cd data;tail -f activemq.log'
 alias tailtomcat='tomcat;cd logs;tail -f catalina.out'
 alias cleantomcat='tomcat; rm -rf webapps/jjw*; rm -rf webapps/addressbook*; rm -rf webapps/fellowship*'
+
+# Git
+alias push='git push origin master'
+alias pull='git pull origin master'
