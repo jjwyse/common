@@ -21,4 +21,12 @@
       </sequential>
    </macrodef>
 
+   <path id="groovy.classpath">
+      <fileset dir="${groovy.all.dir}" includes="groovy-all.jar" />
+   </path>
+
+   <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
+      <classpath refid="groovy.classpath"/>
+   </taskdef>
+
 </project>

@@ -37,12 +37,12 @@ alias sketchbookdep='deploy; cd sketchbook'
 alias testtooldep='deploy; cd testtool'
 
 # Start
-alias startsandbox='sandbox; cd bin; ./start.sh server; taillog'
-alias starttesttool='testtool; cd bin; ./start.sh; taillog';
+alias startsandbox='sandboxdep; cd bin; ./start.sh server; taillog'
+alias starttesttool='testtooldep; cd bin; ./start.sh; taillog';
 
 # Stop
-alias stopsandbox='sandbox; cd bin; ./stop.sh'
-alias stoptesttool='testtool; cd bin; ./stop.sh'
+alias stopsandbox='sandboxdep; cd bin; ./stop.sh'
+alias stoptesttool='testtooldep; cd bin; ./stop.sh'
 
 # Logs
 alias taillog='tail -f ../logs/*.log'

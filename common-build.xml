@@ -30,10 +30,11 @@
    </target>
 
    <!-- Target: Compile -->
-   <target name="compile" description="Compiles any code.">
-      <javac srcdir="${src.dir}" destdir="${scratch.classes.dir}" debug="${debug}" debuglevel="${debug.level}">
+   <target name="compile" description="Compiles any Java or Groovy code.">
+      <groovyc srcdir="${src.dir}" destdir="${scratch.classes.dir}">
          <classpath refid="compile.classpath" />
-      </javac>
+         <javac debug="${debug}" /> <!-- srcdir and destdir are passed to this javac task -->
+      </groovyc>
    </target>
 
    <!-- Target: Jar -->
